@@ -14,7 +14,7 @@ AZ_CAENV_DEPLOYMENT=$(az deployment group create \
                         --template-file ./infra.bicep \
                         --parameters ./parameters.jsonc)
 
-# echo "Retrieving Container Registry..."
+# echo "Retrieving Container Registry... from previous deployment"
 REGISTRY=$(echo $AZ_CAENV_DEPLOYMENT | grep -oE -m 1 '/registries/([^/]+)' | tail -n +2 | cut -d'/' -f3).azurecr.io
 echo "Container Registry: $REGISTRY"
 
@@ -23,17 +23,6 @@ echo "Logging in to Azure Container Registry..."
 az acr login --name $REGISTRY
 
 # Build and push images
-echo "Building and pushing images..."
-docker build -t $REGISTRY/summarizer/requests-api:latest ../../src/requests-api
-docker build -t $REGISTRY/summarizer/requests-processor:latest ../../src/requests-processor
-docker build -t $REGISTRY/summarizer/frontend:latest  ../../src/frontend
-docker push $REGISTRY/summarizer/requests-api:latest
-docker push $REGISTRY/summarizer/requests-processor:latest
-docker push $REGISTRY/summarizer/frontend:latest
 
 # Deploy Container Apps
-echo "Deploying Container Apps..."
-AZ_CAENV_DEPLOYMENT=$(az deployment group create \
-                        --resource-group $RESOURCE_GROUP \
-                        --template-file ./apps.bicep \
-                        --parameters ./parameters.jsonc)
+

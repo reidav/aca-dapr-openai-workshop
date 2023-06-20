@@ -12,25 +12,8 @@ class SummarizeRequestState:
         self.settings = settings
 
     def find_all(self, token: str = None):
-        try:
-            # Paging are supported using token
-            # see https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-state-query-api/
-
-            token = f", \"token\": \"{token}\"" if token is not None else ""
-            query = '''
-            {{
-                "page": {{
-                    "limit": 100{0}
-                }}
-            }}
-            '''.format(token)
-
-            return self.__query_state(query)
-        except Exception as e:
-            logging.error(
-                f"Error while trying to find all requests within the dapr state store")
-            logging.error(e)
-            return []
+        # Add the logic here to get all requests
+        return None
 
     def try_find_by_id(self, id : str):
         return self.__try_filter("id", id)
@@ -64,22 +47,7 @@ class SummarizeRequestState:
                 f"Error while deleting {id} within the dapr state store \n {e}")
 
     def __try_filter(self, property : str, value : str):
-        try:
-            query = '''
-            {{
-                "filter": {{
-                    "EQ": {{ "{0}": "{1}" }}
-                }}
-            }}
-            '''.format(property, value)
-
-            results = self.__query_state(query)
-            return results[0] if len(results) > 0 else None
-        except Exception as e:
-            logging.error(
-                f"Error while trying to find request using {property} and {value} within the dapr state store")
-            logging.error(e)
-
+        # Add the logic here to filter by property
         return None
     
     def __query_state(self, query : str):
@@ -110,25 +78,4 @@ class SummarizeRequestState:
         return requests
     
     def __alert_owner(self, request: SummarizeRequest):
-        # Send email to requestor
-        email_contents = """
-        <html>
-            <body>
-                <p>Hi,</p>
-                <p>Here is the summary for the article you requested:</p>
-                <p><a href="{url}">{url}</a></p>
-                <p>{summary}</p>
-                <p>Thanks for using our service!</p>
-            </body>
-        </html>        
-        """.format(url=request.get_url(), summary=request.get_summary())
-
-        self.dapr_client.invoke_binding(
-            binding_name=self.settings.binding_smtp,
-            operation='create',
-            data=json.dumps(email_contents),
-            binding_metadata={
-                "emailTo": request.get_email(),
-                "subject": f"🎉 New Summary for {request.get_url()}!"
-            }
-        )
+        pass

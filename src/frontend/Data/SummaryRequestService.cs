@@ -19,24 +19,13 @@ public class SummaryRequestService
 
     public async Task AddSummaryRequestAsync(NewSummaryRequestPayload newSummaryRequest)
     {
-        CancellationTokenSource source = new CancellationTokenSource();
-        CancellationToken cancellationToken = source.Token;
-
-        await this._daprClient.PublishEventAsync<NewSummaryRequestPayload>(
-            _settings.PubRequestName,
-            _settings.PubRequestTopic,
-            newSummaryRequest,
-            cancellationToken
-        );
+        // TODO : Add the new summary request to the requests API
+        await Task.CompletedTask;
     }
 
     public async Task<SummaryRequest[]> GetSummaryRequestsAsync()
     {
-        HttpRequestMessage? response = this._daprClient.CreateInvokeMethodRequest(
-            HttpMethod.Get,
-            _settings.requestsApiAppId,
-            _settings.requestsApiEndpoint
-        );
-        return await this._daprClient.InvokeMethodAsync<SummaryRequest[]>(response);
+        // TODO : Get all the summary request
+        return await Task.FromResult(Array.Empty<SummaryRequest>());
     }
 }

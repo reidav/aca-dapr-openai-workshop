@@ -102,43 +102,4 @@ module keyVault 'modules/infra/keyvault.bicep' = {
 // DAPR COMPONENTS
 // ------------------
 
-module daprSmtp 'modules/dapr/smtp.bicep' = {
-  name: '${deployment().name}-dapr-smtp'
-  params: {
-    daprComponentName: 'summarizer-smtp'
-    containerAppsEnvironmentName: containerAppsEnvironment.outputs.name
-    smtpHost: smtpHost
-    smtpPort: smtpPort
-  }
-}
-
-module daprPubSub 'modules/dapr/pubsub.bicep' = {
-  name: '${deployment().name}-dapr-pubsub'
-  params: {
-    daprComponentName: 'summarizer-pubsub'
-    containerAppsEnvironmentName: containerAppsEnvironment.outputs.name
-    serviceBusConnectionString: serviceBus.outputs.connectionString
-  }
-}
-
-module daprStateStore 'modules/dapr/statestore.bicep' = {
-  name: '${deployment().name}-dapr-statestore'
-  params: {
-    daprComponentName: 'summarizer-statestore'
-    containerAppsEnvironmentName: containerAppsEnvironment.outputs.name
-    cosmosDbName: cosmos.outputs.cosmosDbName
-    cosmosCollectionName: cosmos.outputs.cosmosCollectionName
-    cosmosUrl: cosmos.outputs.cosmosUrl
-    cosmosKey: cosmos.outputs.cosmosKey
-  }
-}
-
-module daprSecretStore 'modules/dapr/secretstore.bicep' = {
-  name: '${deployment().name}-dapr-secretstore'
-  params: {
-    daprComponentName: 'summarizer-secretstore'
-    containerAppsEnvironmentName: containerAppsEnvironment.outputs.name
-    vaultName: keyVault.outputs.vaultName
-    managedIdentityClientId: keyVault.outputs.vaultManagedIdentityClientId
-  }
-}
+// Add each dapr components here 
