@@ -25,12 +25,35 @@ Before starting this workshop, be sure you have:
 
 **Summarizer Blazor App (Front-end)** : A Blazor WebAssembly application that allows to browse all summaries and eventually queue new links to be summarized.
 
+![SummarizeWeb](docs/assets/images/summarizer-web.png)
+
 **Requests API (Python)** : FastAPI leveraging Dapr state management to store / get all requests of summaries. It allows to track and reuse previous summaries eventually generated. When a new completed request is created following processing, it sends a email message to the requestor.
 
 **Requests Processor (Python)** : A Python application that allows to process summary requests in queue. If no summary has already being provided, it will prompt Azure Open AI to get a new summary. In any case, requests will be tracked using the requests API at the end of the process.
 
 ## How to install
 
-### 1. [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/reidav/aca-dapr-openai-workshop?quickstart=1)
+### 1. Open the solution using GitHub Codespaces
 
-### 2. 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/reidav/aca-dapr-openai-workshop?quickstart=1)
+
+### 2. Review the file at ./infra/setup.sh and set the global variable
+
+```bash
+export RESOURCE_GROUP=rg-summarizer>
+export WORKLOAD_NAME=summarizer
+export ENVIRONMENT=dev
+export UNIQUE_ID=01
+```
+
+### 2. Deploy the application
+
+```bash
+az login
+cd infra
+./setup.sh
+```
+
+### 3. Review resources
+
+![SummarizeArchitecture](docs/assets/images/summarizer-assets.png)
