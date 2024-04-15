@@ -12,14 +12,14 @@ During this workshop you will have the instructions to complete each steps. It i
 
 Before starting this workshop, be sure you have:
 
-- A dedicated resource group with the the `Owner` role to create and manage the labs' resources and ease the cleanup at the end.
+- An existing subscription with owner rights with rights to provision Azure Open AI resources.
+  - If you don't have an Azure subscription, create a [free account](https://azure.microsoft.com/en-us/free/) before you begin.
+  - You can request access to Azure Open AI [here](https://aka.ms/oai/access)
 - Azure providers should be registerd on your Azure Subscription if not done yet: `Microsoft.CognitiveServices`, `Microsoft.DocumentDB`, `Microsoft.ContainerRegistry`, `Microsoft.KeyVault`, `Microsoft.ServiceBus`,`Microsoft.Web`
-- A ready to use Azure Open AI instance (API Key and API  Endpoint)
-- An existing SMTP server (host, port) to be used in the lab.
 
-## Summarizer
+## Link Summarizer
 
-**Summarizer** is an application designed to demonstrates how to build a, intelligent cloud native application using Dapr, Containers Apps and Open AI. It is composed of multiple microservices.
+**Link Summarizer** is an application designed to demonstrates how to build a, intelligent cloud native application using Dapr, Containers Apps and Open AI. It is composed of multiple microservices.
 
 ![SummarizeArchitecture](docs/assets/images/summarizer-dapr-aca.png)
 
@@ -29,3 +29,8 @@ Before starting this workshop, be sure you have:
 
 **Requests Processor (Python)** : A Python application that allows to process summary requests in queue. If no summary has already being provided, it will prompt Azure Open AI to get a new summary. In any case, requests will be tracked using the requests API at the end of the process.
 
+## How to install
+
+### 1. [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/reidav/aca-dapr-openai-workshop?quickstart=1)
+
+### 2. 

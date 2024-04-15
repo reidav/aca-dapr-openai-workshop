@@ -3,29 +3,30 @@
 {
   "name": "aca-dapr-openai-workshop",
   "image": "mcr.microsoft.com/vscode/devcontainers/base:bullseye",
-  "workspaceFolder": "/workspaces/aca-dapr-openai-workshop",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+  "workspaceFolder": "/workspace",
+  "runArgs": ["--privileged", "--init"],
   "onCreateCommand": "bash ./.devcontainer/on-setup.sh",
 
-  "runArgs": ["--privileged", "--init"],
-
   "features": {
-    "ghcr.io/devcontainers/features/python:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/azure-cli:1": {},
+    "ghcr.io/azure/azure-dev/azd:latest": {},
+    "ghcr.io/audacioustux/devcontainers/vegeta:1": {},
+    "ghcr.io/dapr/cli/dapr-cli:0": {},
     "ghcr.io/devcontainers/features/docker-in-docker:2": {
       "version": "latest",
       "enableNonRootDocker": "true",
       "moby": "true"
     },
+    "ghcr.io/devcontainers/features/python:1": {},
     "ghcr.io/devcontainers/features/node:1": {
       "version": "lts"
     },
     "ghcr.io/devcontainers/features/dotnet:2.0.5": {
       "version": "8.0"
     },
-    "ghcr.io/devcontainers/features/github-cli:1": {},
-    "ghcr.io/devcontainers/features/azure-cli:1": {},
-    "ghcr.io/audacioustux/devcontainers/vegeta:1": {},
-    "ghcr.io/devcontainers/features/rust:1": {},
-    "ghcr.io/dapr/cli/dapr-cli:0": {}
+    "ghcr.io/devcontainers/features/rust:1": {}
   },
 
   "customizations": {
@@ -44,14 +45,11 @@
         "ms-dotnettools.csdevkit"
       ]
     }
-  }
+  },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [],
 
-  // Use 'postCreateCommand' to run commands after the container is created.
-  //"postCreateCommand": "bash ./.devcontainer/on-setup.sh"
-
   // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-  // "remoteUser": "root"
+  "remoteUser": "vscode"
 }

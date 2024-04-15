@@ -37,5 +37,5 @@ set_dapr_config
 # Prefetch dependencies
 pip install -r ./src/requests-api/requirements.txt
 pip install -r ./src/requests-processor/requirements.txt
-dotnet restore ./src/frontend/Frontend.csproj
-# (cd ./src/job/ && cargo build)
+dotnet restore ./src/requests-frontend/Frontend.csproj
+(cd ./src/job/ && cargo build)
