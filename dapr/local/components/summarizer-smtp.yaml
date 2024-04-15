@@ -1,0 +1,20 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: summarizer-smtp
+spec:
+  type: bindings.smtp
+  version: v1
+  metadata:
+  - name: host
+    secretKeyRef:
+      name: SMTP-HOST
+      key:  SMTP-HOST
+  - name: port
+    secretKeyRef:
+      name: SMTP-PORT
+      key:  SMTP-PORT
+  - name: emailFrom
+    value: "noreply@summarize.io"
+auth:
+  secretStore: summarizer-secretstore

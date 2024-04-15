@@ -1,0 +1,8 @@
+dapr
+dapr-ext-fastapi 
+cloudevents
+openai
+fastapi
+pydantic
+uvicorn
+retry

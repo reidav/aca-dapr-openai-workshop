@@ -1,0 +1,19 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: summarizer-statestore
+spec:
+  type: state.azure.cosmosdb
+  version: v1
+  initTimeout: 5m
+  metadata:
+  - name: url
+    value: https://<url>.documents.azure.com:443/
+  - name: masterKey
+    value: "<masterKey>"
+  - name: database
+    value: "summarizer"
+  - name: collection
+    value: "state"
+  - name: actorStateStore
+    value: "true"

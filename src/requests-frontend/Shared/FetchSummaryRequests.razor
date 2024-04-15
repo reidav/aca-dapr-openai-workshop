@@ -1,0 +1,38 @@
+@using Frontend.Data
+@inject SummaryRequestService SummaryRequestService
+@inject AppSettings AppSettings
+@inject ILogger<FetchSummaryRequests> Logger
+
+
+<div id="summary-list">
+
+@if (requests == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+        @foreach (var request in requests)
+        {
+            <div class="summary-card">
+               <a href="@request.Url">@request.Url</a>
+                <p>@request.Summary</p>
+            </div>
+        }
+}
+</div>
+
+@functions {
+    private SummaryRequest[]? requests;
+     
+    protected override async Task OnInitializedAsync()
+    {
+        try {
+            this.requests = await SummaryRequestService.GetSummaryRequestsAsync();
+        }
+        catch(Exception ex)
+        {
+            Logger.LogError(ex, "Error loading summary requests");
+        }
+    }
+}

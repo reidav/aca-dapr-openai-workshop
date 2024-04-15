@@ -1,0 +1,36 @@
+@using Frontend.Data
+@using Microsoft.Extensions.Logging
+@using Microsoft.AspNetCore.Components.Forms
+
+@inject ILogger<NewSummaryRequest> Logger
+@inject SummaryRequestService SummaryRequestService
+
+<EditForm EditContext="@editContext" OnSubmit="@AddSummaryRequestAsync" class="summary-request-form">
+    <DataAnnotationsValidator />
+    <label for="email">Email:</label>
+    <InputText id="email" @bind-Value="newSummaryRequestPayload.Email" placeholder="Enter your email" class="lbl" />
+    <label for="url">URL:</label>
+    <InputText id="url" @bind-Value="newSummaryRequestPayload.Url" placeholder="Enter the URL" class="lbl" />
+    <button type="submit">Queue</button>
+    <ValidationSummary />
+</EditForm>
+
+@code {
+    private NewSummaryRequestPayload newSummaryRequestPayload = new NewSummaryRequestPayload();
+    private EditContext? editContext;
+
+    protected override void OnInitialized()
+    {
+        newSummaryRequestPayload.Email = "me@bangaluru";
+        editContext = new(newSummaryRequestPayload);
+    }
+
+    private async Task AddSummaryRequestAsync()
+    {
+        if (editContext != null && editContext.Validate())
+        {
+            Logger.LogInformation("AddSummaryRequestAsync called: Form  is valid");
+            await SummaryRequestService.AddSummaryRequestAsync(newSummaryRequestPayload);
+        }
+    }
+}
